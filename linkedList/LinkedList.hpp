@@ -98,14 +98,29 @@ void LinkedList<T>::addFront(T value)
 template <typename T>
 bool LinkedList<T>::removeBack()
 {
-	Node<T>* lastNode = nullptr;
-	Node<T>* secondintoLast = nullptr;
+
 	bool isRemoved = false;
 
-	/** TODO 
-		Fix this method
-	*/
-
+	if (m_front == nullptr) {
+		return false;
+	} else if (m_front->getNext() == nullptr) {
+		delete m_front;
+		m_front = nullptr;
+		m_size--;
+		return true;
+	} else {
+		Node<T> *penultimate = m_front;
+		Node<T> *ultimate = m_front->getNext();
+		while (ultimate->getNext() != nullptr)
+		{
+			ultimate = ultimate->getNext();
+			penultimate = penultimate->getNext();
+		}
+		penultimate->setNext(nullptr);
+		delete ultimate;
+		m_size--;
+	}
+	
 	return(isRemoved);
 }	
 
